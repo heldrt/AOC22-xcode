@@ -3,10 +3,29 @@ import SwiftGraph
 
 extension Mine {
     func run() {
-        loadInput("day2")
-        pr("test")
+        loadInput("day1")
+        day1()
+        //pr("test")
     }
-    // Day1()
+    func day1() {
+        let components = input.components(separatedBy: "\n\n")
+        var maxValue = 0
+        var totals = [Int]()
+        for chunk in components {
+            let numberStrings = chunk.components(separatedBy: "\n")
+            var total = 0
+            for num in numberStrings {
+                total += Int(num) ?? 0
+            }
+            totals.append(total)
+            if (total > maxValue) {
+                maxValue = total
+            }
+        }
+        let sortedTotals = totals.sorted{ $0 > $1 }
+        pr(maxValue)
+        pr(sortedTotals[0] + sortedTotals[1] + sortedTotals[2])
+    }
 }
 
 struct ContentView: View {
