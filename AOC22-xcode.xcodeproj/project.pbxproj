@@ -20,8 +20,7 @@
 		41FC1A982937156F00101C2C /* Numerics in Frameworks */ = {isa = PBXBuildFile; productRef = 41FC1A972937156F00101C2C /* Numerics */; };
 		41FC1A9A2937156F00101C2C /* RealModule in Frameworks */ = {isa = PBXBuildFile; productRef = 41FC1A992937156F00101C2C /* RealModule */; };
 		41FC1A9D293715EE00101C2C /* SwiftGraph in Frameworks */ = {isa = PBXBuildFile; productRef = 41FC1A9C293715EE00101C2C /* SwiftGraph */; };
-		41FCC7002937FBFC007964B0 /* day3.txt in Resources */ = {isa = PBXBuildFile; fileRef = 41FCC6FF2937FBFC007964B0 /* day3.txt */; };
-		41FCC70229380982007964B0 /* day4.txt in Resources */ = {isa = PBXBuildFile; fileRef = 41FCC70129380982007964B0 /* day4.txt */; };
+		54446281293C5CCC0049BACB /* day3.txt in Resources */ = {isa = PBXBuildFile; fileRef = 54446280293C5CCC0049BACB /* day3.txt */; };
 		54EA61B72939CC1400E9B46F /* day1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 54EA61B62939CC1400E9B46F /* day1.txt */; };
 		54EA61B92939CE7E00E9B46F /* day2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 54EA61B82939CE7E00E9B46F /* day2.txt */; };
 /* End PBXBuildFile section */
@@ -33,8 +32,7 @@
 		41FC1A7C2937124E00101C2C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		41FC1A7E2937124F00101C2C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		41FC1A812937124F00101C2C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		41FCC6FF2937FBFC007964B0 /* day3.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = day3.txt; sourceTree = "<group>"; };
-		41FCC70129380982007964B0 /* day4.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = day4.txt; sourceTree = "<group>"; };
+		54446280293C5CCC0049BACB /* day3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = day3.txt; path = ../../../../../Downloads/day3.txt; sourceTree = "<group>"; };
 		54EA61B62939CC1400E9B46F /* day1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = day1.txt; sourceTree = "<group>"; };
 		54EA61B82939CE7E00E9B46F /* day2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = day2.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -100,8 +98,7 @@
 			children = (
 				54EA61B62939CC1400E9B46F /* day1.txt */,
 				54EA61B82939CE7E00E9B46F /* day2.txt */,
-				41FCC6FF2937FBFC007964B0 /* day3.txt */,
-				41FCC70129380982007964B0 /* day4.txt */,
+				54446280293C5CCC0049BACB /* day3.txt */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -183,9 +180,8 @@
 				41FC1A822937124F00101C2C /* Preview Assets.xcassets in Resources */,
 				54EA61B72939CC1400E9B46F /* day1.txt in Resources */,
 				41FC1A7F2937124F00101C2C /* Assets.xcassets in Resources */,
-				41FCC70229380982007964B0 /* day4.txt in Resources */,
 				54EA61B92939CE7E00E9B46F /* day2.txt in Resources */,
-				41FCC7002937FBFC007964B0 /* day3.txt in Resources */,
+				54446281293C5CCC0049BACB /* day3.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -4,9 +4,66 @@ import SwiftGraph
 extension Mine {
     func run() {
         //day1()
-        day2()
+        //day2()
+        day3()
         //pr("test")
     }
+    
+    func day3() {
+        loadInput("day3")
+        let charValues = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
+                          "k", "l", "m", "n", "o", "p", "q", "r", "s", "t",
+                          "u", "v", "w","x", "y", "z"]
+        let sacks = input.components(separatedBy: "\n")
+        var totalScore = 0
+        pr(sacks.count)
+        for sack in sacks {
+            let sackLength = sack.count
+            let compartment1 = sack.prefix(sackLength/2)
+            let compartment2 = sack.suffix(sackLength/2)
+            for i in 0..<compartment1.count {
+                let char = compartment1[compartment1.index (compartment1.startIndex, offsetBy: i)]
+                if (compartment2.firstIndex(of: char)) != nil {
+                    var adder = 1
+                    var modChar = String(char)
+                    if char.isUppercase {
+                        adder = 27
+                        modChar = char.lowercased()
+                    }
+                    let value = adder + Int(charValues.firstIndex(of: modChar) ?? 0)
+                    totalScore += value
+                    break
+                }
+            }
+        }
+        pr(totalScore)
+        
+        var totalScore2 = 0
+        for i in 0..<sacks.count/3 {
+            let sack1 = sacks[i*3]
+            let sack2 = sacks[i*3+1]
+            let sack3 = sacks[i*3+2]
+            for i in 0..<sack1.count {
+                let char = sack1[sack1.index (sack1.startIndex, offsetBy: i)]
+                if (sack2.firstIndex(of: char)) != nil {
+                    if (sack3.firstIndex(of: char)) != nil {
+                        var adder = 1
+                        var modChar = String(char)
+                        if char.isUppercase {
+                            adder = 27
+                            modChar = char.lowercased()
+                        }
+                        let value = adder + Int(charValues.firstIndex(of: modChar) ?? 0)
+                        totalScore2 += value
+                        break
+                    }
+                }
+            }
+        }
+        pr(totalScore2)
+
+    }
+    
     func day2() {
         loadInput("day2")
         let opponentOptions = ["A", "B", "C"]
