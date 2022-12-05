@@ -5,8 +5,49 @@ extension Mine {
     func run() {
         //day1()
         //day2()
-        day3()
+        //day3()
+        day4()
         //pr("test")
+    }
+    
+    func day4() {
+        loadInput("day4")
+        var totalOverlapping1 = 0
+        var totalOverlapping2 = 0
+        let pairs = input.components(separatedBy: "\n")
+        for pair in pairs {
+            let members = pair.components(separatedBy: ",")
+            //pr(members[0])
+            if (members.count > 1) {
+                var member1Range = members[0].components(separatedBy: "-")
+                var member2Range = members[1].components(separatedBy: "-")
+                //pr(Int(member1Range[0]))
+                var addedValue = 0
+                if (Int(member1Range[0]) ?? 0 == Int(member2Range[0]) ?? 0) {
+                    addedValue = 1
+                } else if (Int(member1Range[1]) ?? 0 == Int(member2Range[1]) ?? 0) {
+                    addedValue = 1
+                } else if (Int(member1Range[0]) ?? 0 < Int(member2Range[0]) ?? 0) {
+                    if (Int(member2Range[1]) ?? 0 <= Int(member1Range[1]) ?? 0) {
+                        addedValue = 1
+                    }
+                } else if (Int(member2Range[0]) ?? 0 < Int(member1Range[0]) ?? 0) {
+                    if (Int(member1Range[1]) ?? 0 <= Int(member2Range[1]) ?? 0) {
+                        addedValue = 1
+                    }
+                }
+                totalOverlapping1 = totalOverlapping1 + addedValue
+                
+                if (addedValue == 1) {
+                    totalOverlapping2 = totalOverlapping2 + addedValue
+                } else if !((Int(member1Range[0]) ?? 0 > Int(member2Range[1]) ?? 0) ||
+                            (Int(member2Range[0]) ?? 0 > Int(member1Range[1]) ?? 0)){
+                    totalOverlapping2 = totalOverlapping2 + 1
+                }
+            }
+        }
+        pr(totalOverlapping1)
+        pr(totalOverlapping2)
     }
     
     func day3() {
