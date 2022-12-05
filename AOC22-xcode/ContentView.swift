@@ -6,10 +6,58 @@ extension Mine {
         //day1()
         //day2()
         //day3()
-        day4()
+        //day4()
+        day5()
         //pr("test")
     }
     
+    func day5() {
+        loadInput("day5")
+        let stackCount = 9
+        var stacks = [[String]]()
+        for _ in 0..<stackCount {
+            stacks.append([String]())
+        }
+        let lines = input.components(separatedBy: "\n")
+        for i in 0..<lines.count {
+            let line = lines[lines.index (lines.startIndex, offsetBy: i)]
+            if (line.firstIndex(of: "[") != nil) {
+                for j in 0..<stackCount {
+                    let charPosition = 1+j*4
+                    let contents = String(line[line.index (line.startIndex, offsetBy: charPosition)])
+                    if (contents != " ") {
+                        stacks[j].append(contents)
+                       // pr(String(j) + " " + contents)
+                    }
+                }
+            } else if (line.contains("move")) {
+                let start = line.index(line.startIndex, offsetBy: 5)
+                let end = line.index(line.endIndex, offsetBy: 0)
+                let range = start..<end
+                let lineSubstring = line[range]
+                let endMoveAmount = lineSubstring.firstIndex(of: " ") ?? lineSubstring.endIndex
+                let movementString = lineSubstring[lineSubstring.startIndex..<endMoveAmount]
+                //pr(lineSubstring[lineSubstring.index (lineSubstring.startIndex, offsetBy: 0)])
+                let moveAmount = Int(movementString) ?? 0
+                let fromStack = Int(String(lineSubstring[lineSubstring.index(endMoveAmount, offsetBy: 6)]))!-1
+                let toStack = Int(String(lineSubstring[lineSubstring.index(endMoveAmount, offsetBy: 11)]))!-1
+                // First part
+//                for _ in 0..<moveAmount {
+//                    //pr(stacks[fromStack].first)
+//                    stacks[toStack].insert(stacks[fromStack].first!, at:stacks[toStack].startIndex)
+//                    stacks[fromStack].removeFirst()
+//                }
+                // Second part
+                let setToMove = stacks[fromStack][0...(moveAmount-1)]
+                stacks[toStack].insert(contentsOf: setToMove, at:stacks[toStack].startIndex)
+                stacks[fromStack].removeFirst(moveAmount)
+            }
+        }
+        for s in 0..<stackCount {
+           pr(stacks[s].first)
+        }
+    }
+
     func day4() {
         loadInput("day4")
         var totalOverlapping1 = 0
@@ -37,7 +85,7 @@ extension Mine {
                     }
                 }
                 totalOverlapping1 = totalOverlapping1 + addedValue
-                
+
                 if (addedValue == 1) {
                     totalOverlapping2 = totalOverlapping2 + addedValue
                 } else if !((Int(member1Range[0]) ?? 0 > Int(member2Range[1]) ?? 0) ||
@@ -49,62 +97,62 @@ extension Mine {
         pr(totalOverlapping1)
         pr(totalOverlapping2)
     }
-    
-    func day3() {
-        loadInput("day3")
-        let charValues = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
-                          "k", "l", "m", "n", "o", "p", "q", "r", "s", "t",
-                          "u", "v", "w","x", "y", "z"]
-        let sacks = input.components(separatedBy: "\n")
-        var totalScore = 0
-        pr(sacks.count)
-        for sack in sacks {
-            let sackLength = sack.count
-            let compartment1 = sack.prefix(sackLength/2)
-            let compartment2 = sack.suffix(sackLength/2)
-            for i in 0..<compartment1.count {
-                let char = compartment1[compartment1.index (compartment1.startIndex, offsetBy: i)]
-                if (compartment2.firstIndex(of: char)) != nil {
-                    var adder = 1
-                    var modChar = String(char)
-                    if char.isUppercase {
-                        adder = 27
-                        modChar = char.lowercased()
-                    }
-                    let value = adder + Int(charValues.firstIndex(of: modChar) ?? 0)
-                    totalScore += value
-                    break
-                }
-            }
-        }
-        pr(totalScore)
-        
-        var totalScore2 = 0
-        for i in 0..<sacks.count/3 {
-            let sack1 = sacks[i*3]
-            let sack2 = sacks[i*3+1]
-            let sack3 = sacks[i*3+2]
-            for i in 0..<sack1.count {
-                let char = sack1[sack1.index (sack1.startIndex, offsetBy: i)]
-                if (sack2.firstIndex(of: char)) != nil {
-                    if (sack3.firstIndex(of: char)) != nil {
-                        var adder = 1
-                        var modChar = String(char)
-                        if char.isUppercase {
-                            adder = 27
-                            modChar = char.lowercased()
-                        }
-                        let value = adder + Int(charValues.firstIndex(of: modChar) ?? 0)
-                        totalScore2 += value
-                        break
-                    }
-                }
-            }
-        }
-        pr(totalScore2)
 
-    }
-    
+//    func day3() {
+//        loadInput("day3")
+//        let charValues = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
+//                          "k", "l", "m", "n", "o", "p", "q", "r", "s", "t",
+//                          "u", "v", "w","x", "y", "z"]
+//        let sacks = input.components(separatedBy: "\n")
+//        var totalScore = 0
+//        pr(sacks.count)
+//        for sack in sacks {
+//            let sackLength = sack.count
+//            let compartment1 = sack.prefix(sackLength/2)
+//            let compartment2 = sack.suffix(sackLength/2)
+//            for i in 0..<compartment1.count {
+//                let char = compartment1[compartment1.index (compartment1.startIndex, offsetBy: i)]
+//                if (compartment2.firstIndex(of: char)) != nil {
+//                    var adder = 1
+//                    var modChar = String(char)
+//                    if char.isUppercase {
+//                        adder = 27
+//                        modChar = char.lowercased()
+//                    }
+//                    let value = adder + Int(charValues.firstIndex(of: modChar) ?? 0)
+//                    totalScore += value
+//                    break
+//                }
+//            }
+//        }
+//        pr(totalScore)
+//
+//        var totalScore2 = 0
+//        for i in 0..<sacks.count/3 {
+//            let sack1 = sacks[i*3]
+//            let sack2 = sacks[i*3+1]
+//            let sack3 = sacks[i*3+2]
+//            for i in 0..<sack1.count {
+//                let char = sack1[sack1.index (sack1.startIndex, offsetBy: i)]
+//                if (sack2.firstIndex(of: char)) != nil {
+//                    if (sack3.firstIndex(of: char)) != nil {
+//                        var adder = 1
+//                        var modChar = String(char)
+//                        if char.isUppercase {
+//                            adder = 27
+//                            modChar = char.lowercased()
+//                        }
+//                        let value = adder + Int(charValues.firstIndex(of: modChar) ?? 0)
+//                        totalScore2 += value
+//                        break
+//                    }
+//                }
+//            }
+//        }
+//        pr(totalScore2)
+//
+//    }
+
     func day2() {
         loadInput("day2")
         let opponentOptions = ["A", "B", "C"]
@@ -136,7 +184,7 @@ extension Mine {
         }
         pr(totalScore)
     }
-    
+
     func determineOutcome(_ opponent: String, _ choice: String) -> Int {
         var score = 0
         switch choice {
@@ -175,7 +223,7 @@ extension Mine {
         }
         return score
     }
-    
+
     func day1() {
         loadInput("day1")
         let components = input.components(separatedBy: "\n\n")
