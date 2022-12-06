@@ -7,9 +7,63 @@ extension Mine {
         //day2()
         //day3()
         //day4()
-        day5()
+        //day5()
+        day6()
         //pr("test")
     }
+    
+    func day6() {
+        loadInput("day6")
+        var counts: [Character: Int] = [:]
+        let markerLength = 14
+        var charBuffer = [Character]()
+        pr(input.count)
+        if (input.count < markerLength) {
+            return
+        } else {
+            for i in 0..<markerLength {
+                charBuffer.append(input[input.index(input.startIndex, offsetBy: i)])
+            }
+            var repetitionFound = false
+            for item in charBuffer {
+                counts[item] = (counts[item] ?? 0) + 1
+                if (counts[item] ?? 0) > 1 {
+                    repetitionFound = true
+                }
+            }
+            if !repetitionFound {
+                pr(charBuffer)
+                pr(markerLength-1)
+            }
+            let start = input.index(input.startIndex, offsetBy: markerLength)
+            let end = input.index(input.endIndex, offsetBy: 0)
+            let range = start..<end
+            let inputSubstring = input[range]
+            for (index, char) in inputSubstring.enumerated() {
+                if (index) < inputSubstring.count {
+                    let firstChar = charBuffer.first ?? Character("a")
+                    counts[firstChar] = (counts[firstChar] ?? 0) - 1
+                    charBuffer.removeFirst()
+                    charBuffer.append(char)
+                    counts[char] = (counts[char] ?? 0) + 1
+                    var repetitionFound = false
+                    for item in charBuffer {
+                        if (counts[item] ?? 0) > 1 {
+                            repetitionFound = true
+                        }
+                    }
+                    if !repetitionFound {
+                        pr(charBuffer)
+                        pr(index+markerLength+1)
+                        return
+                    }
+                } else {
+                    return
+                }
+            }
+        }
+    }
+        
     
     func day5() {
         loadInput("day5")
