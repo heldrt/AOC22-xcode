@@ -8,9 +8,55 @@ extension Mine {
         //day3()
         //day4()
         //day5()
-        day6()
+        //day6()
+        day7()
+        
         //pr("test")
     }
+    
+    func day7() {
+        var rootNode: TreeNode = TreeNode(name: "root", size: 0)
+        var currentNode = rootNode
+        
+        loadInput("day7")
+        let lines = input.components(separatedBy: "\n")
+        for line in lines {
+            if line.contains("$ cd") {
+                if line.contains("/") {
+                    currentNode = rootNode
+                } else if line.contains(".."){
+                    currentNode = currentNode.getParent()
+                } else {
+                    let start = line.index(line.startIndex, offsetBy: 5)
+                    let end = line.index(line.endIndex, offsetBy: 0)
+                    let range = start..<end
+                    let directoryName = String(line[range])
+                    currentNode = currentNode.getChild(name: directoryName)
+                }
+            } else if line.contains("dir ") {
+                let start = line.index(line.startIndex, offsetBy: 4)
+                let end = line.index(line.endIndex, offsetBy: 0)
+                let range = start..<end
+                let directoryName = String(line[range])
+                var newNode: TreeNode = TreeNode(name: directoryName, size: 0, parent: currentNode)
+                currentNode.add(newNode)
+            } else if !(line.contains("$ ls")) {
+                let components = line.components(separatedBy: " ")
+                if (components.count > 1) {
+                    var newNode: TreeNode = TreeNode(name: components[1], size: Int(components[0]) ?? 0, parent: currentNode)
+                    currentNode.add(newNode)
+                }
+            }
+        }
+        
+        let amountToFree = 30000000 - (70000000 - rootNode.getSize())
+        pr(rootNode.getSizeUnderMax(max: 100000))
+        pr(rootNode.getSmallestDirectoryToDelete(size: amountToFree))
+    
+    }
+    
+    
+    
     
     func day6() {
         loadInput("day6")
@@ -334,6 +380,79 @@ class Mine {
     public var str = ""
     public var input = ""
 }
+
+
+class TreeNode {
+    public var name: String
+    public var size: Int
+    public var parent: TreeNode?
+    public var children: [TreeNode] = []
+    
+    public init(name: String, size: Int, parent: TreeNode? = nil) {
+        self.name = name
+        self.size = size
+        self.parent = parent ?? nil
+    }
+    
+    public func add(_ child: TreeNode) {
+        children.append(child)
+    }
+    
+    public func getSize() -> Int{
+        var totalSize: Int = self.size
+        for child in children {
+            totalSize = totalSize + child.getSize()
+        }
+        return totalSize
+    }
+    
+
+    public func getSmallestDirectoryToDelete(size: Int) -> (total: Int, closestSize: Int) {
+        var totalSize: Int = self.size
+        var closestSize: Int = Int.max
+        for child in children {
+            let closestSizeData = child.getSmallestDirectoryToDelete(size: size)
+            totalSize = totalSize + closestSizeData.total
+            if ((closestSizeData.closestSize >= size) && (closestSizeData.closestSize < closestSize)) {
+                closestSize = closestSizeData.closestSize
+            }
+        }
+        if ((totalSize >= size) && (totalSize < closestSize) && children.count > 0)  ||
+            ((closestSize == 0) && (children.count > 0)){
+            closestSize = totalSize
+        }
+        return (totalSize, closestSize)
+    }
+                                              
+                                              
+    public func getSizeUnderMax(max: Int) -> (total: Int, totalUnderMax: Int){
+        var totalSize: Int = self.size
+        var totalSizeUnderMax: Int = 0
+        for child in children {
+            let totalValues = child.getSizeUnderMax(max: max)
+            totalSizeUnderMax = totalSizeUnderMax + totalValues.totalUnderMax
+            totalSize = totalSize + totalValues.total
+        }
+        if (totalSize < max && children.count > 0) {
+            totalSizeUnderMax = totalSizeUnderMax + totalSize
+        }
+        return (totalSize, totalSizeUnderMax)
+    }
+                                              
+    public func getParent() -> TreeNode{
+        return self.parent ?? self
+    }
+    
+    public func getChild(name: String) -> TreeNode{
+        for child in children {
+            if (child.name == name) {
+                return child
+            }
+        }
+        return self
+    }
+}
+
 
 extension View {
     func Print(_ item: Any) -> some View {

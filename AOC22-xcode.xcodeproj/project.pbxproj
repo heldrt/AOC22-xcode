@@ -22,6 +22,7 @@
 		546C77EA293F144A00166E09 /* day6.txt in Resources */ = {isa = PBXBuildFile; fileRef = 546C77E9293F144A00166E09 /* day6.txt */; };
 		546C77ED293F145900166E09 /* day4.txt in Resources */ = {isa = PBXBuildFile; fileRef = 546C77EB293F145900166E09 /* day4.txt */; };
 		546C77EE293F145900166E09 /* day3.txt in Resources */ = {isa = PBXBuildFile; fileRef = 546C77EC293F145900166E09 /* day3.txt */; };
+		546C77F029406C6D00166E09 /* day7.txt in Resources */ = {isa = PBXBuildFile; fileRef = 546C77EF29406C6C00166E09 /* day7.txt */; };
 		54D98C5C293DB3A10064E8E8 /* day5.txt in Resources */ = {isa = PBXBuildFile; fileRef = 54D98C5B293DB3A10064E8E8 /* day5.txt */; };
 		54EA61B72939CC1400E9B46F /* day1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 54EA61B62939CC1400E9B46F /* day1.txt */; };
 		54EA61B92939CE7E00E9B46F /* day2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 54EA61B82939CE7E00E9B46F /* day2.txt */; };
@@ -36,6 +37,7 @@
 		546C77E9293F144A00166E09 /* day6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = day6.txt; sourceTree = "<group>"; };
 		546C77EB293F145900166E09 /* day4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = day4.txt; path = ../../../../../.Trash/day4.txt; sourceTree = "<group>"; };
 		546C77EC293F145900166E09 /* day3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = day3.txt; path = ../../../../../.Trash/day3.txt; sourceTree = "<group>"; };
+		546C77EF29406C6C00166E09 /* day7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = day7.txt; sourceTree = "<group>"; };
 		54D98C5B293DB3A10064E8E8 /* day5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = day5.txt; sourceTree = "<group>"; };
 		54EA61B62939CC1400E9B46F /* day1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = day1.txt; sourceTree = "<group>"; };
 		54EA61B82939CE7E00E9B46F /* day2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = day2.txt; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				546C77EB293F145900166E09 /* day4.txt */,
 				54D98C5B293DB3A10064E8E8 /* day5.txt */,
 				546C77E9293F144A00166E09 /* day6.txt */,
+				546C77EF29406C6C00166E09 /* day7.txt */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -190,6 +193,7 @@
 				54EA61B92939CE7E00E9B46F /* day2.txt in Resources */,
 				546C77ED293F145900166E09 /* day4.txt in Resources */,
 				54D98C5C293DB3A10064E8E8 /* day5.txt in Resources */,
+				546C77F029406C6D00166E09 /* day7.txt in Resources */,
 				546C77EE293F145900166E09 /* day3.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
