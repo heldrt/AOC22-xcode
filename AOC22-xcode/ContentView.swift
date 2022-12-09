@@ -9,13 +9,189 @@ extension Mine {
         //day4()
         //day5()
         //day6()
-        day7()
-        
+        //day7()
+        //day8()
+        day9()
         //pr("test")
     }
     
+    func day9() {
+        
+        
+        
+    }
+    
+    func day8() {
+        loadInput("day8")
+        let lines = input.components(separatedBy: "\n")
+        let rows = lines.count
+        let columns = lines[0].count
+        
+        var heights = [[Int]]()
+        var leftVisibility = [[Bool]]()
+        var rightVisibility = [[Bool]]()
+        var topVisibility = [[Bool]]()
+        var bottomVisibility = [[Bool]]()
+        
+        // Create heights array
+        for row in 0..<lines.count {
+            let line = lines[row]
+            var newRow = [Int]()
+            for column in 0..<line.count {
+                newRow.append(Int(String(line[line.index(line.startIndex, offsetBy: column)])) ?? 0)
+            }
+            heights.append(newRow)
+        }
+        
+        // Check right visibility
+        for row in 0..<heights.count {
+            var highest = -1
+            var newVisibilityRow = [Bool]()
+            for column in 0..<heights[row].count {
+                if heights[row][column] > highest {
+                    highest = heights[row][column]
+                    newVisibilityRow.append(true)
+                } else {
+                    newVisibilityRow.append(false)
+                }
+            }
+            rightVisibility.append(newVisibilityRow)
+        }
+        
+        // Check left visibility
+        for row in 0..<heights.count{
+            var highest = -1
+            var newVisibilityRow = [Bool]()
+            for column in (0..<heights[row].count).reversed() {
+                if heights[row][column] > highest {
+                    highest = heights[row][column]
+                    newVisibilityRow.insert(true, at: 0)
+                } else {
+                    newVisibilityRow.insert(false, at: 0)
+                }
+            }
+            leftVisibility.append(newVisibilityRow)
+            //pr(leftVisibility[row])
+        }
+        
+        // Prep top and bottom visibility arrays
+        var emptyRow = [Bool]()
+        for _ in 0..<heights[0].count {
+            emptyRow.append(false)
+        }
+        for _ in 0..<heights.count {
+            topVisibility.append(emptyRow)
+            bottomVisibility.append(emptyRow)
+        }
+
+        
+        // Check top visibility
+        for column in 0..<heights[0].count {
+            var highest = -1
+            for row in 0..<heights.count {
+                if (heights[row].count > 0) {
+                    if heights[row][column] > highest {
+                        highest = heights[row][column]
+                        topVisibility[row][column] = true
+                    } else {
+                        topVisibility[row][column] = false
+                    }
+                }
+            }
+        }
+        
+        // Check bottom visibility
+        for column in 0..<heights[0].count {
+            var highest = -1
+            for row in (0..<heights.count).reversed() {
+                if (heights[row].count > 0) {
+                    if heights[row][column] > highest {
+                        highest = heights[row][column]
+                        bottomVisibility[row][column] = true
+                    } else {
+                        bottomVisibility[row][column] = false
+                    }
+                }
+            }
+        }
+        
+        var visibilityCount = 0
+        
+        for row in 0..<heights.count {
+            for column in 0..<heights[row].count {
+                if (rightVisibility[row][column] ||
+                    leftVisibility[row][column] ||
+                    topVisibility[row][column] ||
+                    bottomVisibility[row][column]) {
+                    visibilityCount = visibilityCount + 1
+                }
+            }
+        }
+        //pr(visibilityCount)
+        
+        var bestScore = 0
+        for row in 0..<heights.count {
+            for column in 0..<heights[row].count {
+                let currentTreeHeight = heights[row][column]
+                var rightDistance = 0
+                for c in (column + 1)..<heights[row].count {
+                    if c >= heights[row].count {
+                        break
+                    } else if heights[row][c] < currentTreeHeight {
+                        rightDistance = rightDistance + 1
+                    } else {
+                        rightDistance = rightDistance + 1
+                        break
+                    }
+                }
+                var leftDistance = 0
+                for c in (0..<(column)).reversed() {
+                    if c < 0 {
+                        break
+                    } else if heights[row][c] < currentTreeHeight {
+                        leftDistance = leftDistance + 1
+                    } else {
+                        leftDistance = leftDistance + 1
+                        break
+                    }
+                }
+                var bottomDistance = 0
+                for r in (row + 1)..<heights.count {
+                    if r >= heights.count {
+                        break
+                    } else if heights[r].count == 0 {
+                        break
+                    } else if heights[r][column] < currentTreeHeight {
+                        bottomDistance = bottomDistance + 1
+                    } else {
+                        bottomDistance = bottomDistance + 1
+                        break
+                    }
+                }
+                //pr(bottomDistance)
+                var topDistance = 0
+                for r in (0..<(row)).reversed() {
+                    if r < 0 {
+                        break
+                    } else if heights[r][column] < currentTreeHeight {
+                        topDistance = topDistance + 1
+                    } else {
+                        topDistance = topDistance + 1
+                        break
+                    }
+                }
+//                pr(topDistance)
+                let totalScore = rightDistance * leftDistance * topDistance * bottomDistance
+                if (totalScore > bestScore){
+                    bestScore = totalScore
+                }
+            }
+        }
+        pr(bestScore)
+    }
+    
     func day7() {
-        var rootNode: TreeNode = TreeNode(name: "root", size: 0)
+        let rootNode: TreeNode = TreeNode(name: "root", size: 0)
         var currentNode = rootNode
         
         loadInput("day7")
@@ -38,12 +214,12 @@ extension Mine {
                 let end = line.index(line.endIndex, offsetBy: 0)
                 let range = start..<end
                 let directoryName = String(line[range])
-                var newNode: TreeNode = TreeNode(name: directoryName, size: 0, parent: currentNode)
+                let newNode: TreeNode = TreeNode(name: directoryName, size: 0, parent: currentNode)
                 currentNode.add(newNode)
             } else if !(line.contains("$ ls")) {
                 let components = line.components(separatedBy: " ")
                 if (components.count > 1) {
-                    var newNode: TreeNode = TreeNode(name: components[1], size: Int(components[0]) ?? 0, parent: currentNode)
+                    let newNode: TreeNode = TreeNode(name: components[1], size: Int(components[0]) ?? 0, parent: currentNode)
                     currentNode.add(newNode)
                 }
             }
