@@ -16,17 +16,66 @@ extension Mine {
     }
     
     func day9() {
-        
-        
-        
+        loadInput("day9")
+        let mapSideSize = 1024
+        let numKnots = 10
+        var knots = Array(repeating:(mapSideSize/2,mapSideSize/2), count: numKnots)
+        var map = Array(repeating: Array(repeating: 0, count: mapSideSize), count: mapSideSize)
+        map[knots[numKnots - 1].0][knots[numKnots - 1].1] = 1
+        let lines = input.components(separatedBy: "\n")
+        for line in lines {
+            let components = line.components(separatedBy: " ")
+            if (components.count > 1) {
+                let direction = components[0]
+                var distance = Int(components[1]) ?? 0
+                var headMovement = (0,0)
+                switch (direction) {
+                case "U":
+                    headMovement = (0,1)
+                case "D":
+                    headMovement = (0,-1)
+                case "L":
+                    headMovement = (-1,0)
+                case "R":
+                    headMovement = (1,0)
+                default:
+                    pr("No direction")
+                }
+                
+                while (distance > 0){
+                    knots[0].0 = knots[0].0 + headMovement.0
+                    knots[0].1 = knots[0].1 + headMovement.1
+                    
+                    for i in 1..<numKnots {
+                        if (abs(knots[i-1].1 - knots[i].1) + abs(knots[i-1].0 - knots[i].0)) == 3 {
+                            knots[i].0 = knots[i].0 + (knots[i-1].0 - knots[i].0).signum()
+                            knots[i].1 = knots[i].1 + (knots[i-1].1 - knots[i].1).signum()
+                        } else {
+                            if abs(knots[i-1].1 - knots[i].1) == 2 {
+                            knots[i].1 = knots[i].1 + (knots[i-1].1 - knots[i].1).signum()
+                            }
+                            if abs(knots[i-1].0 - knots[i].0) == 2 {
+                                knots[i].0 = knots[i].0 + (knots[i-1].0 - knots[i].0).signum()
+                            }
+                        }
+                    }
+                    map[knots[numKnots-1].0][knots[numKnots-1].1] = 1
+                    distance = distance - 1
+                }
+            }
+        }
+        var totalVisited = 0
+        for row in 0..<map.count {
+            for column in 0..<map[row].count{
+                totalVisited = totalVisited + map[row][column]
+            }
+        }
+        pr (totalVisited)
     }
     
     func day8() {
         loadInput("day8")
         let lines = input.components(separatedBy: "\n")
-        let rows = lines.count
-        let columns = lines[0].count
-        
         var heights = [[Int]]()
         var leftVisibility = [[Bool]]()
         var rightVisibility = [[Bool]]()
