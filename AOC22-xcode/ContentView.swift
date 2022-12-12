@@ -13,8 +13,204 @@ extension Mine {
         //day8()
         //day9()
         //day10()
-        day11()
+        //day11()
+        day12()
         //pr("test")
+    }
+    
+    /// <#Description#>
+    func day12() {
+        loadInput("day12")
+        var map = [[Int]]()
+        var visited = [[Int]]()
+        var minDistances = [[Int]]()
+        var position = (0,0)
+        var endPosition = (0,0)
+        let lines = input.components(separatedBy: "\n")
+        let ASCIIValueOfA = Int(Character("a").asciiValue ?? 0)
+        let ASCIIValueOfE = Int(Character("E").asciiValue ?? 0)
+        let ASCIIValueOfS = Int(Character("S").asciiValue ?? 0)
+        //pr(ASCIIValueOfE - ASCIIValueOfA)
+        for line in lines {
+            var intLine = [Int]()
+            var visitedLine = [Int]()
+            var minDistanceLine = [Int]()
+            for i in 0..<line.count {
+                let characterValue = line[line.index(line.startIndex, offsetBy: i)]
+                if (Int(characterValue.asciiValue ?? 0) == ASCIIValueOfS){
+                    position.0 = map.count
+                    position.1 = i
+                    intLine.append(0)
+                } else if (Int(characterValue.asciiValue ?? 0) == ASCIIValueOfE){
+                    endPosition.0 = map.count
+                    endPosition.1 = i
+//                    intLine.append(Int(characterValue.asciiValue ?? 0) - ASCIIValueOfA)
+                    intLine.append(25)
+                } else {
+                    intLine.append(Int(characterValue.asciiValue ?? 0) - ASCIIValueOfA)
+                }
+                visitedLine.append(0)
+                minDistanceLine.append(Int.max)
+            }
+            if (intLine.count > 1) {
+                map.append(intLine)
+                visited.append(visitedLine)
+                minDistances.append(minDistanceLine)
+            }
+        }
+        
+        var nodeQueue = [(Int,Int,Int)]()
+        nodeQueue.append((endPosition.0,endPosition.1,0))
+        minDistances[endPosition.0][endPosition.1] = 0
+        pr(endPosition)
+        var shortestDistance = Int.max
+        while (nodeQueue.count > 0){
+            let nextNode = nodeQueue.first
+            let nodeDistance = nextNode?.2 ?? 0
+            let nodeX = nextNode?.0 ?? 0
+            let nodeY = nextNode?.1 ?? 0
+            let nodeValue = map[nodeX][nodeY]
+            let potentialNewDistance = nodeDistance + 1
+            for x in -1...1 {
+                let newX = x + nodeX
+                if ((newX >= 0) && (newX < map.count)) {
+                    for y in -1...1 {
+                        if (abs(x) + abs(y) == 1) {
+                            let newY = y + nodeY
+                            if ((newY >= 0) && (newY < map[0].count)) {
+//                                pr(map[newX][newY])
+                                if ((map[newX][newY] == 0) && (nodeValue == 1)){
+                                    if (potentialNewDistance < minDistances[newX][newY] ) {
+                                        minDistances[newX][newY] = potentialNewDistance
+                                        if (potentialNewDistance < shortestDistance) {
+                                            shortestDistance = potentialNewDistance
+                                        }
+                                    }
+                                    
+                                } else if (map[newX][newY] > nodeValue || map[newX][newY] == (nodeValue - 1) || map[newX][newY] == nodeValue) {
+                                    if (potentialNewDistance < minDistances[newX][newY] ) {
+                                        minDistances[newX][newY] = potentialNewDistance
+                                        nodeQueue.append((newX, newY, potentialNewDistance))
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            nodeQueue.removeFirst()
+        }
+        pr(shortestDistance)
+//        visited[position.0][position.1] = 1
+//        var nodeQueue = [(Int,Int,Int)]()
+//        nodeQueue.append((position.0,position.1,0))
+//        minDistances[position.0][position.1] = 0
+//        pr(position)
+//        while (nodeQueue.count > 0){
+//            let nextNode = nodeQueue.first
+//            let nodeDistance = nextNode?.2 ?? 0
+//            let nodeX = nextNode?.0 ?? 0
+//            let nodeY = nextNode?.1 ?? 0
+//            let nodeValue = map[nodeX][nodeY]
+//            let potentialNewDistance = nodeDistance + 1
+//            for x in -1...1 {
+//                let newX = x + nodeX
+//                if ((newX >= 0) && (newX < map.count)) {
+//                    for y in -1...1 {
+//                        if (abs(x) + abs(y) == 1) {
+//                            let newY = y + nodeY
+//                            if ((newY >= 0) && (newY < map[0].count)) {
+//                                if ((map[newX][newY] == -28) && (nodeValue == 25 || nodeValue == 24)){
+//                                    if (potentialNewDistance < minDistances[newX][newY] ) {
+//                                        minDistances[newX][newY] = potentialNewDistance
+//                                        pr("found")
+//                                    }
+//
+//                                } else if (map[newX][newY] <= nodeValue + 1 && map[newX][newY] >= 0) {
+//                                    if (potentialNewDistance < minDistances[newX][newY] ) {
+//                                        minDistances[newX][newY] = potentialNewDistance
+//                                        nodeQueue.append((newX, newY, potentialNewDistance))
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//            nodeQueue.removeFirst()
+//        }
+//        pr(minDistances[endPosition.0][endPosition.1])
+    }
+    
+    func getShortestPath(map: [[Int]], visited: [[Int]],position: (Int, Int), currentLength: Int, currentValue: Int) -> Int {
+        var paths = [Int]()
+        var nodeQueue = [(Int,Int)]()
+        nodeQueue.append(position)
+        while (nodeQueue.count > 0){
+            
+            
+            
+        }
+        var newVisited = visited
+        for x in -1...1 {
+            let newX = x + position.0
+            if ((newX >= 0) && (newX < map.count)) {
+                for y in -1...1 {
+                    if (abs(x) + abs(y) == 1) {
+                        let newY = y + position.1
+                        if ((newY >= 0) && (newY < map[0].count)) {
+                            if (visited[newX][newY] == 0) {
+                                if ((map[newX][newY] == -28) && (currentValue == 25 || currentValue == 24)){
+                                    paths.append(currentLength + 1)
+                                } else if (map[newX][newY] <= currentValue + 1 && map[newX][newY] >= 0) {
+                                    newVisited[newX][newY] = 1
+                                    paths.append(getShortestPath(map: map, visited: newVisited, position: (newX,newY), currentLength: currentLength + 1, currentValue: map[newX][newY]))
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (paths.count == 0) {
+            //pr(Int.max)
+            return Int.max
+        } else {
+            paths = paths.sorted()
+            return paths[0]
+        }
+    }
+    
+    func getShortestPathOld(map: [[Int]], visited: [[Int]],position: (Int, Int), currentLength: Int, currentValue: Int) -> Int {
+        var paths = [Int]()
+        var newVisited = visited
+        for x in -1...1 {
+            let newX = x + position.0
+            if ((newX >= 0) && (newX < map.count)) {
+                for y in -1...1 {
+                    if (abs(x) + abs(y) == 1) {
+                        let newY = y + position.1
+                        if ((newY >= 0) && (newY < map[0].count)) {
+                            if (visited[newX][newY] == 0) {
+                                if ((map[newX][newY] == -28) && (currentValue == 25 || currentValue == 24)){
+                                    paths.append(currentLength + 1)
+                                } else if (map[newX][newY] <= currentValue + 1 && map[newX][newY] >= 0) {
+                                    newVisited[newX][newY] = 1
+                                    paths.append(getShortestPath(map: map, visited: newVisited, position: (newX,newY), currentLength: currentLength + 1, currentValue: map[newX][newY]))
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (paths.count == 0) {
+            //pr(Int.max)
+            return Int.max
+        } else {
+            paths = paths.sorted()
+            return paths[0]
+        }
     }
     
     func day11() {
