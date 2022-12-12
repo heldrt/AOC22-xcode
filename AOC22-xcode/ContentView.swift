@@ -11,8 +11,151 @@ extension Mine {
         //day6()
         //day7()
         //day8()
-        day9()
+        //day9()
+        //day10()
+        day11()
         //pr("test")
+    }
+    
+    func day11() {
+        loadInput("day11")
+        let rounds = 10000
+        let lines = input.components(separatedBy: "\n")
+        var monkeyItems = [[Int]]()
+        var monkeyPasses = [Int]()
+        var monkeyOperators = [String]()
+        var monkeySecondValues = [String]()
+        var monkeyDivisibleValues = [Int]()
+        var monkeyTrueReceivers = [Int]()
+        var monkeyFalseReceivers = [Int]()
+        let removeCharacters: Set<Character> = [","]
+        var commonMultiple = 1
+        
+        for line in lines {
+            let components = line.components(separatedBy: " ")
+            if (components.count >= 1) {
+                if (components[0] == "Monkey") {
+                    monkeyItems.append([Int]())
+                    monkeyPasses.append(0)
+                } else if (components.count >= 3) {
+                    if (components[3] == "items:") {
+                        for i in 4..<components.count {
+                            var item = components[i]
+                            item.removeAll(where: { removeCharacters.contains($0) } )
+                            monkeyItems[monkeyItems.count-1].append(Int(item) ?? 0)
+                        }
+                    } else if (components[3] == "new") {
+                        monkeyOperators.append(String(components[6]))
+                        monkeySecondValues.append(String(components[7]))
+                    } else if (components[3] == "divisible") {
+                        monkeyDivisibleValues.append(Int(components[5]) ?? 0)
+                        commonMultiple = commonMultiple * monkeyDivisibleValues[monkeyItems.count-1]
+                    } else if (components[5] == "true:") {
+                        monkeyTrueReceivers.append(Int(components[9]) ?? 0)
+                    } else if (components[5] == "false:") {
+                        monkeyFalseReceivers.append(Int(components[9]) ?? 0)
+                    }
+                }
+            }
+        }
+        for _ in 0..<rounds {
+            for m in 0..<monkeyItems.count {
+                for item in monkeyItems[m] {
+                    let secondValue = Int(monkeySecondValues[m]) ?? item
+                    var newValue: Int
+                    switch (monkeyOperators[m]) {
+                    case "+":
+                        newValue = item + secondValue
+                    case "*":
+                        newValue = item * secondValue
+                    default:
+                        newValue = item
+                    }
+//                    var dividedValue = Int((newValue / Float(3)))
+                    var dividedValue = Int(newValue)
+                    dividedValue = dividedValue % commonMultiple
+                    var receiverMonkey = 0
+                    if (dividedValue % monkeyDivisibleValues[m] == 0) {
+                        receiverMonkey = monkeyTrueReceivers[m]
+                    } else {
+                        receiverMonkey = monkeyFalseReceivers[m]
+                    }
+                    monkeyItems[receiverMonkey].append(Int(dividedValue))
+                    monkeyPasses[m] = monkeyPasses[m] + 1
+                }
+                monkeyItems[m].removeAll(keepingCapacity: false)
+            }
+        }
+        monkeyPasses = monkeyPasses.sorted()
+        pr(monkeyPasses[monkeyPasses.count-1] * monkeyPasses[monkeyPasses.count-2])
+    }
+    
+    func is_prime(n: Int) -> Bool {
+        if n <= 1 {
+            return true
+        }
+        if n <= 3 {
+            return true
+        }
+        var i = 2
+        while i*i <= n {
+            if n % i == 0 {
+                return false
+            }
+            i = i + 1
+        }
+        return true
+    }
+    
+    func day10() {
+        loadInput("day10")
+        let lines = input.components(separatedBy: "\n")
+        let cyclesToSample = [20, 60, 100, 140, 180, 220]
+        var output = "                                                                                                                                                                                                                                                "
+        var X = 1
+        var currentCycle = 1
+        var totalValue = 0
+        for line in lines {
+            if cyclesToSample.contains(currentCycle) {
+                totalValue = totalValue + currentCycle * X
+            }
+            let components = line.components(separatedBy: " ")
+            if components.count > 0 {
+                if components[0] == "addx" {
+                    if (abs(((currentCycle - 1) % 40) - X) <= 1) {
+                        let tempOutput = output
+                        output = String(tempOutput.prefix(currentCycle-1)) + "#" + String(tempOutput.dropFirst(currentCycle))
+                    }
+                    currentCycle = currentCycle + 1
+                    if cyclesToSample.contains(currentCycle) {
+                        totalValue = totalValue + currentCycle * X
+                    }
+                    if (abs(((currentCycle - 1) % 40) - X) <= 1) {
+                        let tempOutput = output
+                        output = String(tempOutput.prefix(currentCycle-1)) + "#" + String(tempOutput.dropFirst(currentCycle))
+                    }
+                    currentCycle = currentCycle + 1
+                    X = X + Int(components[1])!
+                } else {
+                    if (abs(((currentCycle - 1) % 40) - X) <= 1) {
+                        let tempOutput = output
+                        output = String(tempOutput.prefix(currentCycle-1)) + "#" + String(tempOutput.dropFirst(currentCycle))
+                    }
+                    currentCycle = currentCycle + 1
+                }
+            }
+        }
+        
+        
+        pr(totalValue)
+        for i in 0..<6 {
+            let start = output.index(output.startIndex, offsetBy: (i * 40))
+            let end = output.index(output.startIndex, offsetBy: ((i + 1) * 40 - 1))
+            let range = start..<end
+            pr(output[range])
+        }
+                
+//        pr(output)
     }
     
     func day9() {

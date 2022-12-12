@@ -20,6 +20,8 @@
 		41FC1A9A2937156F00101C2C /* RealModule in Frameworks */ = {isa = PBXBuildFile; productRef = 41FC1A992937156F00101C2C /* RealModule */; };
 		41FC1A9D293715EE00101C2C /* SwiftGraph in Frameworks */ = {isa = PBXBuildFile; productRef = 41FC1A9C293715EE00101C2C /* SwiftGraph */; };
 		542C738B2943AA470029F9ED /* day9.txt in Resources */ = {isa = PBXBuildFile; fileRef = 542C738A2943AA470029F9ED /* day9.txt */; };
+		542C738D294461350029F9ED /* day10.txt in Resources */ = {isa = PBXBuildFile; fileRef = 542C738C294461340029F9ED /* day10.txt */; };
+		542C738F2946A7920029F9ED /* day11.txt in Resources */ = {isa = PBXBuildFile; fileRef = 542C738E2946A7920029F9ED /* day11.txt */; };
 		546C77EA293F144A00166E09 /* day6.txt in Resources */ = {isa = PBXBuildFile; fileRef = 546C77E9293F144A00166E09 /* day6.txt */; };
 		546C77ED293F145900166E09 /* day4.txt in Resources */ = {isa = PBXBuildFile; fileRef = 546C77EB293F145900166E09 /* day4.txt */; };
 		546C77EE293F145900166E09 /* day3.txt in Resources */ = {isa = PBXBuildFile; fileRef = 546C77EC293F145900166E09 /* day3.txt */; };
@@ -37,6 +39,8 @@
 		41FC1A7E2937124F00101C2C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		41FC1A812937124F00101C2C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		542C738A2943AA470029F9ED /* day9.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = day9.txt; sourceTree = "<group>"; };
+		542C738C294461340029F9ED /* day10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = day10.txt; sourceTree = "<group>"; };
+		542C738E2946A7920029F9ED /* day11.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = day11.txt; sourceTree = "<group>"; };
 		546C77E9293F144A00166E09 /* day6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = day6.txt; sourceTree = "<group>"; };
 		546C77EB293F145900166E09 /* day4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = day4.txt; path = ../../../../../.Trash/day4.txt; sourceTree = "<group>"; };
 		546C77EC293F145900166E09 /* day3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = day3.txt; path = ../../../../../.Trash/day3.txt; sourceTree = "<group>"; };
@@ -114,6 +118,8 @@
 				546C77EF29406C6C00166E09 /* day7.txt */,
 				546C77F12941B42200166E09 /* day8.txt */,
 				542C738A2943AA470029F9ED /* day9.txt */,
+				542C738C294461340029F9ED /* day10.txt */,
+				542C738E2946A7920029F9ED /* day11.txt */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -194,6 +200,8 @@
 			files = (
 				41FC1A822937124F00101C2C /* Preview Assets.xcassets in Resources */,
 				54EA61B72939CC1400E9B46F /* day1.txt in Resources */,
+				542C738F2946A7920029F9ED /* day11.txt in Resources */,
+				542C738D294461350029F9ED /* day10.txt in Resources */,
 				546C77EA293F144A00166E09 /* day6.txt in Resources */,
 				41FC1A7F2937124F00101C2C /* Assets.xcassets in Resources */,
 				546C77F22941B42200166E09 /* day8.txt in Resources */,
